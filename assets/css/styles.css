@@ -1,0 +1,390 @@
+﻿/* ==========================================================================
+   Стили один в один с референсом ultra-kas.vercel.app
+   (значения взяты из его таблицы стилей: /static/css/main.f9ff4345.css)
+   Ниже, в блоке «дополнения», только то, чего в референсе нет:
+   просмотр PDF, лоадер и тост.
+   ========================================================================== */
+
+* { border: 0; margin: 0; padding: 0; }
+*, :after, :before { box-sizing: border-box; }
+:active, :focus, a:active, a:focus { outline: none; }
+aside, footer, header, nav { display: block; }
+
+body, html {
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-size: 14px;
+  height: 100%;
+  line-height: 1;
+  width: 100%;
+}
+
+button, input, textarea { font-family: inherit; }
+input::-ms-clear { display: none; }
+button { cursor: pointer; }
+button::-moz-focus-inner { border: 0; padding: 0; }
+a, a:hover, a:visited { text-decoration: none; }
+ul li { list-style: none; }
+img { vertical-align: top; }
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: 400; }
+
+html { font-family: Roboto, sans-serif; }
+div { background-color: #fff; }
+
+/* ---------- шапка ---------- */
+
+.container, .title { height: 100%; width: 100%; }
+
+.title {
+  display: inline-block;
+  line-height: 48px;
+  position: relative;
+  text-align: center;
+}
+
+.text-title {
+  color: #000;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: medium;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.back-icon {
+  bottom: 0;
+  display: inline-block;
+  height: 24px;
+  left: 22px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+}
+
+.back-btn {
+  background: transparent;
+  bottom: 0;
+  height: 24px;
+  left: 22px;
+  line-height: 0;
+  margin: auto;
+  position: absolute;
+  top: 0;
+}
+.back-btn .back-icon { left: 0; position: static; }
+
+/* ---------- табы ---------- */
+
+.btntab {
+  background-color: #d9d9d9;
+  border: 2px solid #d9d9d9;
+  border-radius: 10px;
+}
+.btntab:after { clear: both; content: ""; display: table; }
+.btntab input[type=radio] { display: none; }
+
+.btntab label {
+  color: #000;
+  display: block;
+  float: left;
+  font-size: 14px;
+  padding: 8px 0;
+  text-align: center;
+  width: 50%;
+}
+.btntab label:hover { color: #000; }
+
+.btntab [id^=tab-btn]:checked + label {
+  background: #fff;
+  border-radius: 10px;
+  color: #000;
+}
+
+.tab { padding: 18px; }
+
+/* ---------- загрузка документа ---------- */
+
+.img-upload, .middle { height: 100%; width: 100%; }
+.img-upload { display: block; }
+
+.input-img { display: block; margin: 40% 40px; width: 80%; }
+
+.input-file {
+  height: .1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: .1px;
+  z-index: -1;
+}
+
+.input-file + label {
+  border: 5px solid #f14635;
+  border-radius: 20px;
+  color: #f14635;
+  display: block;
+  font-size: large;
+  line-height: 60px;
+  text-align: center;
+}
+.input-file + label:hover, .input-file:focus + label {
+  background-color: #f14635;
+  color: #fff;
+}
+
+#document { height: 70vh; width: 100%; }
+
+/* ---------- реквизиты ---------- */
+
+.rekvizit { display: inline-block; height: 120vh; width: 100%; }
+.rekvizit li { border-bottom: 1px solid #f2f2f2; }
+.rekvizit li img {
+  display: inline-block;
+  height: 21px;
+  position: relative;
+  right: 0;
+  width: 26px;
+}
+
+.atritem {
+  color: #a8a8a8;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 12px;
+  margin: 14px 0 0 16px;
+}
+
+.rekitem {
+  color: #4a4a4a;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 18px;
+  margin: 8px 0 18px 18px;
+  width: 85%;
+}
+
+.save-button {
+  background-color: #4caf50;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+.save-button:hover { background-color: #45a049; }
+
+/* ---------- футер ---------- */
+
+.btnfooter { padding: 20px 17.5px 14.5px; }
+.btnfooter button { font-size: 19px; line-height: 65px; width: 100%; }
+.btnfooter img {
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  right: 10px;
+  top: 20px;
+  width: 26px;
+}
+.share img { height: 26px; right: 6px; top: 18px; width: 28px; }
+
+.btnfooter #btnftr1 { background-color: #3e7ada; border-radius: 14px; color: #fff; }
+
+.share {
+  background-color: #fff;
+  border: solid;
+  border-radius: 14px;
+  color: #3e7ada;
+  margin-top: 10px;
+}
+
+.footer { bottom: 0; position: sticky; }
+
+/* ---------- всплывающее окно ---------- */
+
+.popup-overlay {
+  align-items: flex-end;
+  animation: fadeInUp .5s forwards;
+  background: #00000080;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+}
+
+.popup-content {
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+  max-width: 90%;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+  width: 350px;
+}
+
+.popup-title { align-self: flex-start; font-size: 18px; font-weight: 700; }
+.popup-description { font-size: 16px; margin: 10px 0; }
+.qr-code-container { align-items: center; display: flex; justify-content: center; margin: 20px 0; }
+.popup-text { font-size: 16px; }
+.popup-num { font-size: 20px; font-weight: 700; margin-top: 10px; }
+
+.close-btn {
+  background-color: initial;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(100px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Дополнения (в референсе этого нет)
+   ========================================================================== */
+
+[hidden] { display: none !important; }
+
+/* реквизиты редактируются вручную: при вводе подчёркиваем активное поле */
+.rekitem:focus { box-shadow: 0 1px 0 #3e7ada; color: #16181d; }
+
+/* красная кнопка «Загрузить» — по центру пустого экрана */
+.img-upload {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 50vh;
+}
+.input-img { margin: 0 40px; max-width: 420px; width: 80%; }
+
+/* просмотр документа: по ширине экрана, с зумом и возвратом на место */
+#document {
+  height: auto;              /* вместо 70vh из референса — подстраивается под документ */
+  overflow: hidden;
+  padding: 14px 16px 18px;
+  position: relative;
+  touch-action: none;
+  width: 100%;
+}
+#document.is-zoomed { cursor: grab; }
+#document.is-dragging { cursor: grabbing; }
+
+#document img {
+  display: block;
+  height: auto;
+  width: 100%;
+  margin: 0 auto;
+  transform-origin: 50% 50%;
+  user-select: none;
+  -webkit-user-drag: none;
+  will-change: transform;
+}
+/* по умолчанию возврат плавный, во время жеста — мгновенно за пальцем */
+#document img { transition: transform .38s cubic-bezier(.25, .8, .25, 1); }
+#document img.is-live { transition: none; }
+
+.doc-loader { align-items: center; display: flex; height: 50vh; justify-content: center; }
+.spin {
+  animation: spin .8s linear infinite;
+  border: 3px solid #e4e6e8;
+  border-radius: 50%;
+  border-top-color: #3e7ada;
+  display: block;
+  height: 26px;
+  width: 26px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.toast {
+  background: #16181d;
+  border-radius: 999px;
+  bottom: 24px;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 14px;
+  left: 50%;
+  line-height: 1.35;
+  max-width: min(420px, calc(100vw - 32px));
+  opacity: 0;
+  padding: 12px 18px;
+  pointer-events: none;
+  position: fixed;
+  text-align: center;
+  transform: translate(-50%, 10px);
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 10000;
+}
+.toast.is-shown { opacity: 1; transform: translate(-50%, 0); }
+
+/* ==========================================================================
+   Подгонка под фото приложения на телефоне
+   ========================================================================== */
+
+/* «Назад»: тонкая стрелка поменьше, зона нажатия 36×36 */
+.back-btn {
+  align-items: center;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  left: 6px;
+  width: 36px;
+}
+.back-icon {
+  height: 22px;
+  position: static;
+  width: 22px;
+}
+
+/* Нижние кнопки: иконка и подпись на одной линии по центру */
+.btnfooter { padding: 18px 16px 20px; }
+
+.btnfooter button {
+  align-items: center;
+  display: flex;
+  font-size: 17px;
+  font-weight: 500;
+  gap: 10px;
+  justify-content: center;
+  line-height: 1;
+  min-height: 57px;
+}
+
+.btnfooter img, .btnfooter .btn-ico {
+  flex: none;
+  height: 22px;
+  margin: 0;
+  position: static;
+  width: 22px;
+}
+.btnfooter #btnftr1 img { height: 23px; width: 23px; }
+.share .btn-ico { height: 21px; width: 21px; }
+
+/* Обводка тонкая и светлая; цвет сам подстраивается под цвет текста кнопки */
+.share {
+  border: 1.5px solid #bfd3ff;
+  border-color: color-mix(in srgb, currentColor 32%, #fff);
+  margin-top: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
