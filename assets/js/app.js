@@ -322,7 +322,7 @@ async function extractLines(pdf) {
       rows.get(key).push({ x, str: item.str });
     }
 
-    for (const key of [...rows.keys()].sort((a, b) => b - a)) {
+    for (const key of Array.from(rows.keys()).sort((a, b) => b - a)) {
       const row = rows.get(key)
         .sort((a, b) => a.x - b.x)
         .map((item) => item.str)
@@ -590,7 +590,9 @@ el.documentBox.addEventListener("pointerdown", (event) => {
   pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
   if (pointers.size === 2) {
-    const [a, b] = [...pointers.values()];
+    const values = Array.from(pointers.values());
+    const a = values[0];
+    const b = values[1];
     pinch = { distance: Math.hypot(a.x - b.x, a.y - b.y) || 1, scale: view.scale };
   }
 
@@ -606,7 +608,9 @@ el.documentBox.addEventListener("pointermove", (event) => {
   pointers.set(event.pointerId, next);
 
   if (pointers.size === 2 && pinch) {
-    const [a, b] = [...pointers.values()];
+    const values = Array.from(pointers.values());
+    const a = values[0];
+    const b = values[1];
     const distance = Math.hypot(a.x - b.x, a.y - b.y);
     view.scale = clamp(pinch.scale * (distance / pinch.distance), ZOOM_MIN, ZOOM_MAX);
   } else if (view.scale > 1.001) {
