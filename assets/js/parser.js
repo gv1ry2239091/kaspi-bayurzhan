@@ -337,7 +337,11 @@ export function parseDocument(rawLines) {
   if (!fields.issueDate || !fields.expiryDate) {
     const rest = allDates(lines)
       .filter((date) => date !== fields.birthDate)
-      .sort((a, b) => (toDate(a)?.getTime() || 0) - (toDate(b)?.getTime() || 0));
+      .sort((a, b) => {
+        const aTime = toDate(a) ? toDate(a).getTime() : 0;
+        const bTime = toDate(b) ? toDate(b).getTime() : 0;
+        return aTime - bTime;
+      });
     if (!fields.issueDate && rest.length) fields.issueDate = rest[0];
     if (!fields.expiryDate && rest.length > 1) fields.expiryDate = rest[rest.length - 1];
   }

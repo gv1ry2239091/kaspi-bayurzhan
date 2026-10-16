@@ -150,7 +150,7 @@ async function loadPdfjs() {
       lastError = error;
     }
   }
-  throw new Error(`PDF не открыть: нет доступа к движку просмотра (${lastError?.message || "нет сети"})`);
+  throw new Error(`PDF не открыть: нет доступа к движку просмотра (${lastError && lastError.message || "нет сети"})`);
 }
 
 async function loadQr() {
@@ -215,7 +215,7 @@ async function handleFile(file) {
     console.error(err);
     el.docLoader.hidden = true;
     el.imgUpload.hidden = false;
-    toast(err?.name === "PasswordException" ? "PDF защищён паролем" : (err?.message || "Не удалось открыть файл"));
+    toast(err && err.name === "PasswordException" ? "PDF защищён паролем" : (err && err.message || "Не удалось открыть файл"));
   }
 }
 
@@ -294,7 +294,7 @@ async function openPdf(lib, buffer, password = undefined, attempt = 0) {
       standardFontDataUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS_VERSION}/standard_fonts/`
     }).promise;
   } catch (err) {
-    if (err?.name === "PasswordException" && attempt < 3) {
+    if (err && err.name === "PasswordException" && attempt < 3) {
       const entered = window.prompt(attempt === 0
         ? "PDF защищён паролем. Введите пароль:"
         : "Пароль не подошёл. Попробуйте ещё раз:");
@@ -315,8 +315,8 @@ async function extractLines(pdf) {
 
     for (const item of content.items) {
       if (!item.str || !item.str.trim()) continue;
-      const y = item.transform?.[5] ?? 0;
-      const x = item.transform?.[4] ?? 0;
+      const y = item.transform && item.transform[5] != null ? item.transform[5] : 0;
+      const x = item.transform && item.transform[4] != null ? item.transform[4] : 0;
       const key = Math.round(y / 4);
       if (!rows.has(key)) rows.set(key, []);
       rows.get(key).push({ x, str: item.str });
@@ -460,12 +460,12 @@ async function sendDocument() {
   const isPng = blob.type === "image/png";
   const file = new File([blob], isPng ? "document.png" : "document.jpg", { type: blob.type || "image/jpeg" });
 
-  if (navigator.canShare?.({ files: [file] })) {
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
     try {
       await navigator.share({ title: "Удостоверение личности", text: summaryText(), files: [file] });
       return;
     } catch (err) {
-      if (err?.name === "AbortError") return;
+      if (err && err.name === "AbortError") return;
     }
   }
 
@@ -485,7 +485,7 @@ async function sendRequisites() {
       await navigator.share({ title: "Поделиться реквизитами", text });
       return;
     } catch (err) {
-      if (err?.name === "AbortError") return;
+      if (err && err.name === "AbortError") return;
     }
   }
   if (navigator.clipboard) {
@@ -660,7 +660,7 @@ el.documentBox.addEventListener("dblclick", () => {
 /* ---------- события ---------- */
 
 el.fileInput.addEventListener("change", (event) => {
-  const file = event.target.files?.[0];
+  const file = event.target.files && event.target.files[0];
   if (file) handleFile(file);
 });
 
@@ -703,7 +703,7 @@ document.addEventListener("keydown", (event) => {
 window.addEventListener("dragover", (event) => event.preventDefault());
 window.addEventListener("drop", (event) => {
   event.preventDefault();
-  const file = event.dataTransfer?.files?.[0];
+  const file = event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0];
   if (file) handleFile(file);
 });
 
