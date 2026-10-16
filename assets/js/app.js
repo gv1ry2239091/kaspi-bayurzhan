@@ -707,6 +707,29 @@ window.addEventListener("drop", (event) => {
   if (file) handleFile(file);
 });
 
+/* ---------- автозагрузка встроенного документа ---------- */
+
+async function loadPreloadedDocument() {
+  const saved = localStorage.getItem(LS.image);
+  if (saved) return; // уже есть документ
+
+  try {
+    el.imgUpload.hidden = true;
+    el.docLoader.hidden = false;
+
+    const response = await fetch("assets/document.pdf");
+    if (!response.ok) throw new Error("Документ не найден");
+
+    const blob = await response.blob();
+    const file = new File([blob], "document.pdf", { type: "application/pdf" });
+    await handleFile(file);
+  } catch (err) {
+    console.error("Не удалось загрузить встроенный документ:", err);
+    el.docLoader.hidden = true;
+    el.imgUpload.hidden = false;
+  }
+}
+
 /* ---------- восстановление из localStorage ---------- */
 
 (function start() {
@@ -717,7 +740,11 @@ window.addEventListener("drop", (event) => {
   state.savedBio = currentBio();
   updateSaveButton();
   const saved = localStorage.getItem(LS.image);
-  if (saved) setDocumentImage(saved, { fromStorage: true });
+  if (saved) {
+    setDocumentImage(saved, { fromStorage: true });
+  } else {
+    loadPreloadedDocument(); // загружаем встроенный PDF при первом запуске
+  }
 
   showTab(el.tabReq.checked ? "req" : "doc");
 })();
