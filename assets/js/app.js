@@ -310,16 +310,25 @@ async function extractLines(pdf) {
   const lines = [];
   for (let number = 1; number <= pdf.numPages; number += 1) {
     const page = await pdf.getPage(number);
-    const content = await page.getTextContent();
     const rows = new Map();
-
-    for (const item of content.items) {
-      if (!item.str || !item.str.trim()) continue;
-      const y = item.transform && item.transform[5] != null ? item.transform[5] : 0;
-      const x = item.transform && item.transform[4] != null ? item.transform[4] : 0;
-      const key = Math.round(y / 4);
-      if (!rows.has(key)) rows.set(key, []);
-      rows.get(key).push({ x, str: item.str });
+    // PDF.js 6 getTextContent() использует for-await по ReadableStream,
+    // а Safari 26 не поддерживает его asyncIterator. Читаем поток явно.
+    const reader = page.streamTextContent().getReader();
+    try {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        for (const item of value.items) {
+          if (!item.str || !item.str.trim()) continue;
+          const y = item.transform && item.transform[5] != null ? item.transform[5] : 0;
+          const x = item.transform && item.transform[4] != null ? item.transform[4] : 0;
+          const key = Math.round(y / 4);
+          if (!rows.has(key)) rows.set(key, []);
+          rows.get(key).push({ x, str: item.str });
+        }
+      }
+    } finally {
+      reader.releaseLock();
     }
 
     for (const key of Array.from(rows.keys()).sort((a, b) => b - a)) {
