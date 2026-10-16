@@ -34,7 +34,7 @@ const LABELS = {
   authority: [L("орган\\s*выдачи"), L("берген\\s*орган"), L("authority")]
 };
 
-const ALL_LABELS = Object.values(LABELS).flat();
+const ALL_LABELS = Object.keys(LABELS).map(function(key) { return LABELS[key]; }).reduce(function(acc, arr) { return acc.concat(arr); }, []);
 const ALL_LABELS_G = ALL_LABELS.map((re) => new RegExp(re.source, "giu"));
 
 function cleanLine(line) {
